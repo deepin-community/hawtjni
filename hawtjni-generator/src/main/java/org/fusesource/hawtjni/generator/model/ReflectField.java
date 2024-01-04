@@ -13,7 +13,6 @@ package org.fusesource.hawtjni.generator.model;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashSet;
-
 import org.apache.commons.lang.StringUtils;
 import org.fusesource.hawtjni.runtime.FieldFlag;
 import org.fusesource.hawtjni.runtime.JniField;
@@ -98,6 +97,13 @@ public class ReflectField implements JNIField {
             return false;
         }
         return getFlag(POINTER_FIELD) || ( type.getWrappedClass() == Long.TYPE && getCast().endsWith("*") );
+    }
+
+    public boolean isSharedPointer() {
+        if (annotation == null) {
+            return false;
+        }
+        return getFlag(SHARED_PTR);
     }
 
     public String getConditional() {
